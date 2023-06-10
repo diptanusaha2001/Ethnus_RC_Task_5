@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="date"] {
+      padding: 5px;
+      width: 200px;
+      margin-bottom: 10px;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #2265e1;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #2265e1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Age Calculator</h1>
+  <h4>Enter your date of birth</h4>
+  <form id="ageCalculatorForm">
+    <input type="date" id="birthdate" required>
+    <button type="submit">Calculate Age</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    document.getElementById("ageCalculatorForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      var birthdate = document.getElementById("birthdate").value;
+      var today = new Date();
+      var birthDateObj = new Date(birthdate);
+
+      if (isNaN(birthDateObj)) {
+        document.getElementById("result").innerText = "Invalid date";
+      } else {
+        var yearsDiff = today.getFullYear() - birthDateObj.getFullYear();
+        var monthsDiff = today.getMonth() - birthDateObj.getMonth();
+        var daysDiff = today.getDate() - birthDateObj.getDate();
+
+        if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
+          yearsDiff--;
+        }
+
+        document.getElementById("result").innerText = "You are " + yearsDiff + " years old";
+      }
+    });
+  </script>
+</body>
+</html>
